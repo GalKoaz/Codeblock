@@ -11,6 +11,7 @@ export default function CodeBlock() {
     code: "",
     solution: "",
   });
+  const [userCode, setUserCode] = useState("");
 
   useEffect(() => {
     const socket = io("http://localhost:4000");
@@ -20,6 +21,7 @@ export default function CodeBlock() {
 
       socket.on("codeBlock", ({ title, code, solution }) => {
         setCodeBlock({ title, code, solution });
+        setUserCode(code);
       });
 
       return () => {
@@ -28,6 +30,15 @@ export default function CodeBlock() {
     }
   }, [id]);
 
+
+  const handleRunCode = () => {
+    if (userCode === codeBlock.solution) {
+      alert("Code matches the solution!");
+    } else {
+      alert("Code does not match the solution.");
+    }
+  };
+
   return (
     <div>
       <button onClick={() => navigate("/")}>Back to Lobby</button>
@@ -35,7 +46,8 @@ export default function CodeBlock() {
       <h2>Role:</h2>
       {codeBlock ? (
         <>
-          <Code code={codeBlock.code} />
+          <Code code={userCode} setCode={setUserCode} />
+          <button onClick={handleRunCode}>Run</button>
         </>
       ) : (
         <p>Loading code block...</p>
