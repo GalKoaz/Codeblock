@@ -1,12 +1,12 @@
 const express = require('express');
 
 const router = express.Router();
-const codeblocks = require('../models/codeBlocksModel');
+const CodeBlocks = require('../models/codeBlocksModel');
 
 
 router.get("/", async (req, res) => {
     try {
-        const codeBlocks = await CodeBlock.find();
+        const codeBlocks = await CodeBlocks.find();
         res.json(codeBlocks);
     } catch (error) {
         res.json({ message: error });

@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const codeBlockSchema = new mongoose.Schema({
-    blockid: {type: Number, required: true},
-    title: {type: String, required: true},
-    code: {type: String, required: true},
-    solution: {type: String, required: true}
+    blockid: Number,
+    code: String,
+    solution: String,
+    title: String
 });
 
 
-const CodeBlock = mongoose.model('CodeBlock', codeBlockSchema);
+const CodeBlock = mongoose.model('CodeBlocks', codeBlockSchema);
