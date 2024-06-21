@@ -56,23 +56,15 @@ export default function CodeBlock() {
     }
   };
 
-  const handleRunCode = () => {
-    if (userCode === codeBlock.solution) {
-      alert("Code matches the solution!");
-    } else {
-      alert("Code does not match the solution.");
-    }
-  };
-
   return (
     <>
-      <h1>{codeBlock.title || "None"}</h1>
-      <h2 className="role">Role: {role}</h2>
-      <Modal open={ModalOpen} onClose={() => setModalOpen(false)}>
-        <SolutionConfirm onConfirm={() => setModalOpen(false)} />
-      </Modal>
       {codeBlock.title ? (
         <>
+          <h1>{codeBlock.title}</h1>
+          <h2 className="role">Role: {role}</h2>
+          <Modal open={ModalOpen} onClose={() => setModalOpen(false)}>
+            <SolutionConfirm onConfirm={() => setModalOpen(false)} />
+          </Modal>
           <Code
             code={userCode}
             setCode={setUserCode}
@@ -86,15 +78,10 @@ export default function CodeBlock() {
             >
               Back to Lobby
             </button>
-            {/* {role !== "mentor" && (
-              <button className="run-button" onClick={handleRunCode}>
-                Run
-              </button>
-            )} */}
           </div>
         </>
       ) : (
-        <p>Loading code block...</p>
+        <h1>Loading code block...</h1>
       )}
     </>
   );

@@ -12,7 +12,7 @@ import Lobby from "./components/Lobby";
 export default function App() {
   const routes = [
     { path: "/", element: <Lobby /> },
-    { path: "/:id", element: <CodeBlock /> },
+    { path: "/block/:id", element: <CodeBlock /> },
     { path: "*", element: <NotFound /> },
   ];
 

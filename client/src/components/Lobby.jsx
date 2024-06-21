@@ -23,18 +23,16 @@ export default function Lobby({ setCurrentPage, setSelectedCodeBlockId }) {
     <>
       <h1>Choose code block</h1>
       <div className="titles-container">
-        <ul>
-          {codeBlocks.map((block) => (
-            <ol key={block.id}>
-              <Link
-                to={`${block.id}`}
-                onClick={() => setSelectedCodeBlockId(block.id)}
-              >
-                {block.title}
-              </Link>
-            </ol>
-          ))}
-        </ul>
+        {codeBlocks.map((block) => (
+          <ol key={block.id}>
+            <Link
+              to={`/block/${block.id}`}
+              onClick={() => setSelectedCodeBlockId(block.id)}
+            >
+              {block.title}
+            </Link>
+          </ol>
+        ))}
       </div>
     </>
   );
