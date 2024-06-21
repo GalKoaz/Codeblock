@@ -57,18 +57,20 @@ export default function CodeBlock() {
   };
 
   return (
-    <div>
-      <button onClick={() => navigate("/")}>Back to Lobby</button>
+    <>
       <h1>{codeBlock.title || "None"}</h1>
-      <h2>Role: {role}</h2>
+      <h2 className="role">Role: {role}</h2>
       {codeBlock.title ? (
         <>
           <Code code={userCode} setCode={setUserCode} role={role} handleChange={handleChange} />
-          {role !== "mentor" && <button onClick={handleRunCode}>Run</button>}
+          <div className="button-container">
+            <button className="back-to-lobby-button" onClick={() => navigate("/")}>Back to Lobby</button>
+            {role !== "mentor" && <button className="run-button" onClick={handleRunCode}>Run</button>}
+          </div>
         </>
       ) : (
         <p>Loading code block...</p>
       )}
-    </div>
+    </>
   );
 }

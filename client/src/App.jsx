@@ -6,13 +6,14 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 
 import CodeBlock from "./components/Codeblock";
-
+import NotFound from "./components/NotFound";
 import Lobby from "./components/Lobby";
 
 export default function App() {
   const routes = [
     { path: "/", element: <Lobby /> },
-    { path: "/code/:id", element: <CodeBlock /> },
+    { path: "/:id", element: <CodeBlock /> },
+    { path: "*", element: <NotFound /> },
   ];
 
   return (

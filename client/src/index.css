@@ -15,16 +15,29 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #8187fa;
   text-decoration: inherit;
 }
 a:hover {
   color: #535bf2;
 }
 
+.role {
+  margin-left: 0.2em;
+  text-align: start;
+  font-style: italic;
+  color: #f9f9f9;
+  font-weight: 500;
+  font-size: 1.3em;
+}
+
+
+.code {
+  text-align: start;
+}
+
 body {
   margin: 0;
-  display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
@@ -53,6 +66,53 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.back-to-lobby-button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+
+}
+.back-to-lobby-button:hover {
+  border-color: #646cff;
+}
+.back-to-lobby-button:focus,
+.back-to-lobby-button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.run-button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+
+}
+.run-button:hover {
+  border-color: #1fc92d;
+}
+.run-button:focus,
+.run-button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
 
 @media (prefers-color-scheme: light) {
   :root {

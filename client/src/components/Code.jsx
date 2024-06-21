@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { darcula } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { darcula } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 const Code = ({ code, setCode, role, handleChange }) => {
   const [currentCode, setCurrentCode] = useState(code);
@@ -10,7 +10,7 @@ const Code = ({ code, setCode, role, handleChange }) => {
   }, [code]);
 
   return (
-    <div>
+    <>
       {role !== "mentor" && (
         <textarea
           value={currentCode}
@@ -19,14 +19,21 @@ const Code = ({ code, setCode, role, handleChange }) => {
             handleChange(e);
           }}
           rows="10"
-          cols="80"
-          style={{ marginBottom: "10px", fontFamily: "monospace", fontSize: "14px" }}
+          cols="100"
+          style={{
+            width: "99%",
+            marginBottom: "10px",
+            fontFamily: "monospace",
+            fontSize: "14px",
+          }}
         />
       )}
-      <SyntaxHighlighter language="javascript" style={darcula}>
-        {currentCode}
-      </SyntaxHighlighter>
-    </div>
+      <div className="code">
+        <SyntaxHighlighter language="javascript" style={darcula}>
+          {currentCode}
+        </SyntaxHighlighter>
+      </div>
+    </>
   );
 };
 

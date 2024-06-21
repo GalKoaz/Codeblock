@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import { Link } from "react-router-dom";
+import "../Lobby.css";
 
 const socket = io("http://localhost:4000");
 
-const Lobby = ({ setCurrentPage, setSelectedCodeBlockId }) => {
+export default function Lobby({ setCurrentPage, setSelectedCodeBlockId }) {
   const [codeBlocks, setCodeBlocks] = useState([]);
 
   useEffect(() => {
@@ -19,22 +20,23 @@ const Lobby = ({ setCurrentPage, setSelectedCodeBlockId }) => {
     };
   }, []);
 
-
-
   return (
-    <div>
+    <>
       <h1>Choose code block</h1>
-      <ul>
-        {codeBlocks.map((block) => (
-          <li key={block.id}>
-            <Link to={`/code/${block.id}`} onClick={() => setSelectedCodeBlockId(block.id)}>
-              {block.title}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+      <div className="titles-container">
+        <ul>
+          {codeBlocks.map((block) => (
+            <ol key={block.id}>
+              <Link
+                to={`${block.id}`}
+                onClick={() => setSelectedCodeBlockId(block.id)}
+              >
+                {block.title}
+              </Link>
+            </ol>
+          ))}
+        </ul>
+      </div>
+    </>
   );
-};
-
-export default Lobby;
+}
