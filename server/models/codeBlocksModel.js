@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 
+// Define the schema for the code block model
 const codeBlockSchema = new mongoose.Schema({
-    blockid: Number,
+    title: String,
     code: String,
     solution: String,
-    title: String
+    blockId: Number
 });
 
+const Block = mongoose.model('Block', codeBlockSchema);
 
-const CodeBlock = mongoose.model('CodeBlocks', codeBlockSchema);
+module.exports = Block;

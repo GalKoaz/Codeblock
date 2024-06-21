@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import io from "socket.io-client";
+
+const socket = io("http://localhost:4000");
+
 
 export default function Lobby({ setCurrentPage, setSelectedCodeBlockId }) {
   const [codeBlocks, setCodeBlocks] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:4000/api/codeblocks") // Replace with your backend URL
+    fetch("http://localhost:4000/")
       .then((response) => response.json())
       .then((data) => setCodeBlocks(data));
   }, []);

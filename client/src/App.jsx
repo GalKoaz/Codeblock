@@ -11,20 +11,19 @@ export default function App() {
   const [selectedBlock, setSelectedBlock] = useState(null);
 
   
-  const routeDefinitions = createRoutesFromElements(
-    <Route>
-      <Route path="/" element={<Lobby />} />
-      <Route path="/codeblock" element={<CodeBlock />} />
-    </Route>
+  // const routeDefinitions = createRoutesFromElements(
+  //   <Route>
+  //     <Route path="/" element={<Lobby />} />
+  //     <Route path="/code/:id"  />
+  //   </Route>
+  // );
 
-  );
-
-  const router = createBrowserRouter(RouterProvider);
+ // const router = createBrowserRouter(RouterProvider);
 
 
   return (
     <>
-      <RouterProvider router={router} />
+      <h1>Welcome</h1>
     </>
   );
 };
