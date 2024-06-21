@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
 const codeBlockSchema = new mongoose.Schema({
     blockid: {type: Number, required: true},

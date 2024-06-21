@@ -1,39 +1,33 @@
-// Imports
-import express from "express";
-import mongoose from "mongoose";
-import cors from "cors";
-import dotenv from "dotenv";
-import http from "http";
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const dotenv = require("dotenv");
+const http = require("http");
+const socketIo = require("socket.io");
+const codeBlockRoutes = require("./routes/codeBlocks");
+
+dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
-mongoose.connect(process.env.CONNECTION_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-
-const codeBlockSchema = new mongoose.Schema({
-  title: String,
-  code: String,
-  solution: String,
-  blockid: int,
-});
-
-
-const CodeBlock = mongoose.model('CodeBlock', codeBlockSchema);
+mongoose
+  .connect(process.env.CONNECTION_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((error) => console.log(error.message));
 
 app.use(cors());
 app.use(express.json());
 
 // Routes
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use("/", codeBlockRoutes);
 
-// Database connection
-dotenv.config();
 const PORT = process.env.PORT || 5000;
-const CONNECTION_URL = process.env.CONNECTION_URL;
+
+server.listen(PORT, () =>
+  console.log(`Server is running on http://localhost:${PORT}`)
+);
