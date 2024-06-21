@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Link } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
 import { useParams, useNavigate } from "react-router-dom";
 import Code from "./Code";
@@ -12,24 +12,41 @@ export default function CodeBlock() {
     solution: "",
   });
   const [userCode, setUserCode] = useState("");
+  const [role, setRole] = useState("");
+  const socketRef = useRef(null);
 
   useEffect(() => {
-    const socket = io("http://localhost:4000");
+    socketRef.current = io("http://localhost:4000");
 
     if (id) {
-      socket.emit("getCodeBlock", id);
+      socketRef.current.emit("getCodeBlock", id);
 
-      socket.on("codeBlock", ({ title, code, solution }) => {
+      socketRef.current.on("codeBlock", ({ title, code, solution }) => {
         setCodeBlock({ title, code, solution });
         setUserCode(code);
       });
 
+      socketRef.current.on("role", (role) => {
+        setRole(role);
+      });
+
+      socketRef.current.on("codeUpdated", (updatedCode) => {
+        setUserCode(updatedCode);
+      });
+
       return () => {
-        socket.off("codeBlock");
+        if (socketRef.current) {
+          socketRef.current.disconnect();
+        }
       };
     }
   }, [id]);
 
+  const handleChange = (event) => {
+    const newCode = event.target.value;
+    setUserCode(newCode);
+    socketRef.current.emit("updateCode", { id, newCode });
+  };
 
   const handleRunCode = () => {
     if (userCode === codeBlock.solution) {
@@ -42,12 +59,12 @@ export default function CodeBlock() {
   return (
     <div>
       <button onClick={() => navigate("/")}>Back to Lobby</button>
-      <h1>{codeBlock ? codeBlock.title : "None"}</h1>
-      <h2>Role:</h2>
-      {codeBlock ? (
+      <h1>{codeBlock.title || "None"}</h1>
+      <h2>Role: {role}</h2>
+      {codeBlock.title ? (
         <>
-          <Code code={userCode} setCode={setUserCode} />
-          <button onClick={handleRunCode}>Run</button>
+          <Code code={userCode} setCode={setUserCode} role={role} handleChange={handleChange} />
+          {role !== "mentor" && <button onClick={handleRunCode}>Run</button>}
         </>
       ) : (
         <p>Loading code block...</p>
