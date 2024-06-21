@@ -1,19 +1,24 @@
 const express = require('express');
 
 const router = express.Router();
-const CodeBlocks = require('../models/codeBlocksModel');
+const Block = require('../models/codeBlocksModel');
 
 
 router.get("/", async (req, res) => {
     try {
-        console.log('Fetching code block titles');
-        const codeBlocks = await CodeBlocks.find({}, 'blockid title');
-        const titles = codeBlocks.map(CodeBlocks => ({ id: CodeBlocks.blockid, title: CodeBlocks.title }));
-        socket.emit('titles', titles);
-        console.log('Fetched code block titles');
-    } catch (error) {
-        console.error('Error fetching code block titles:', error);
-    }
+        console.log("Fetching code block titles");
+        const codeBlocks = await Block.find({}, "blockId title");
+        const titles = codeBlocks.map((block) => ({
+          id: block.blockId,
+          title: block.title,
+        }));
+        console.log(titles);
+        res.json(titles);
+        console.log("Fetched code block titles");
+      } catch (error) {
+        console.error("Error fetching code block titles:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+      }
     });
 
 // router.post("/", async (req, res) => {
