@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { darcula } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
-const Code = ({ code, setCode, role, handleChange }) => {
+export default function Code({ code, setCode, role, handleChange }){
   const [currentCode, setCurrentCode] = useState(code);
 
   useEffect(() => {
@@ -36,5 +36,3 @@ const Code = ({ code, setCode, role, handleChange }) => {
     </>
   );
 };
-
-export default Code;
