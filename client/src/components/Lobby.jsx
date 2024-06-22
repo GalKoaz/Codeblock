@@ -10,9 +10,12 @@ import { Link } from "react-router-dom";
   It uses the socket.io-client library to connect to the server and retrieve the code blocks.
 */
 
-const socket = io("http://localhost:4000");
+const BASE_URL =
+  process.env.NODE_ENV === "production" ? "/" : "http://localhost:4000";
 
-export default function Lobby({ setCurrentPage, setSelectedCodeBlockId }) {
+const socket = io(BASE_URL);
+
+export default function Lobby() {
   const [codeBlocks, setCodeBlocks] = useState([]);
 
   useEffect(() => {
@@ -30,18 +33,17 @@ export default function Lobby({ setCurrentPage, setSelectedCodeBlockId }) {
   return (
     <>
       <h1>Choose code block</h1>
-      <div className="titles-container">
-        {codeBlocks.map((block) => (
-          <ol key={block.id}>
-            <Link
-              to={`/block/${block.id}`}
-              onClick={() => setSelectedCodeBlockId(block.id)}
-            >
-              {block.title}
-            </Link>
-          </ol>
-        ))}
-      </div>
+      {codeBlocks.length === 0 ? (
+        <h2>Loading...</h2>
+      ) : (
+        <div className="titles-container">
+          {codeBlocks.map((block) => (
+            <ol key={block.id}>
+              <Link to={`block/${block.id}`}>{block.title}</Link>
+            </ol>
+          ))}
+        </div>
+      )}
     </>
   );
 }

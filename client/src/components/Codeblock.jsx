@@ -14,6 +14,8 @@ import SolutionConfirm from "./SolutionConfirm";
   The useParams hook is used to access the id parameter from the URL.
 */
 
+const BASE_URL = process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:4000';
+
 export default function CodeBlock() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -28,7 +30,7 @@ export default function CodeBlock() {
   const socketRef = useRef(null);
 
   useEffect(() => {
-    socketRef.current = io("http://localhost:4000");
+    socketRef.current = io(BASE_URL);
 
     if (id) {
       socketRef.current.emit("getCodeBlock", id);
