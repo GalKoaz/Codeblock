@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./App.css";
+import "./styles/App.css";
 import CodeBlock from "./components/Codeblock";
 import NotFound from "./components/NotFound";
 import Lobby from "./components/Lobby";
