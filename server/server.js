@@ -7,6 +7,13 @@ const codeBlockRoutes = require("./routes/codeBlocks");
 const connectDB = require("./db");
 const setupSocket = require("./socket/setupSocket");
 
+/*
+  server.js description:
+  This file is the entry point for the server application.
+  It sets up the express server, connects to the database, and configures the socket.io server.
+  It also listens for incoming connections on the specified port.
+*/
+
 dotenv.config();
 
 const app = express();

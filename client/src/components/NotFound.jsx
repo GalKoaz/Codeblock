@@ -1,6 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+/* 
+  NotFound component description:
+  This component is rendered when a user tries to access a route that does not exist.
+  It displays a message that the page is not found and provides a link to the homepage.
+*/
+
 export default function NotFound(){
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>

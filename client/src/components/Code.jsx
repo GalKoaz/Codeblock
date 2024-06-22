@@ -2,6 +2,16 @@ import React, { useEffect, useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { darcula } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
+/*
+  Code component description:
+  This component displays the code block that the user is working on.
+  It accepts props for code, setCode, role, and handleChange.
+  The code prop is the code block that the user is working on.
+  The setCode prop is a function to update the code block.
+  The role prop is the user's role.
+  The handleChange prop is a function to handle changes to the code block.
+*/
+
 export default function Code({ code, setCode, role, handleChange }){
   const [currentCode, setCurrentCode] = useState(code);
 

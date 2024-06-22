@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
 
+/*
+    db.js description:
+    This file contains the logic to connect to the MongoDB database.
+    It uses the mongoose library to establish a connection to the database.
+*/
 
-// Connect to MongoDB using the connection string in the .env file
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.CONNECTION_URL, {

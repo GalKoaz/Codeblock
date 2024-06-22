@@ -1,13 +1,15 @@
-import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
-
 import CodeBlock from "./components/Codeblock";
 import NotFound from "./components/NotFound";
 import Lobby from "./components/Lobby";
+
+/*
+  App component description:
+  This is the main component of the application.
+  It uses the BrowserRouter, Routes, and Route components from react-router-dom to define the routes of the application.
+  It renders the Lobby, CodeBlock, and NotFound components based on the current route.
+*/
 
 export default function App() {
   const routes = [

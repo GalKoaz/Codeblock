@@ -4,6 +4,13 @@ const {
     handleUpdateCode,
     handleDisconnect,
   } = require("./socketHandlers");
+
+
+  /*
+    setupSocket.js description:
+    This file contains the logic to set up the socket.io server.
+    It listens for incoming connections and defines the event handlers for the socket events.
+  */
   
   const setupSocket = (io) => {
     io.on("connection", (socket) => {

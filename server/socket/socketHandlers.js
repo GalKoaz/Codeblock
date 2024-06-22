@@ -1,7 +1,18 @@
 const Block = require("../models/codeBlocksModel");
 
+/*
+  socketHandlers.js description:
+  This file contains the event handlers for the socket events.
+  It defines the logic to handle the different events that occur on the socket connection.
+*/
+
 const codeBlockConnections = {};
 
+/*
+  handleGetTitles function description:
+  This function fetches the code block titles from the database and emits them to the client.
+  It sends the titles to the client when the client requests them.
+*/
 const handleGetTitles = async (socket) => {
   try {
     console.log("Fetching code block titles");
@@ -17,6 +28,11 @@ const handleGetTitles = async (socket) => {
   }
 };
 
+/*
+  handleGetCodeBlock function description:
+  This function fetches the code block with the specified id from the database and emits it to the client.
+  It sends the code block to the client when the client requests it.
+*/
 const handleGetCodeBlock = async (socket, id) => {
   try {
     const connections = codeBlockConnections[id] || [];
@@ -29,7 +45,7 @@ const handleGetCodeBlock = async (socket, id) => {
       socket.emit("role", "student");
     }
 
-    console.log('User joined code block', id, codeBlockConnections[id]);
+    console.log("User joined code block", id, codeBlockConnections[id]);
 
     console.log(`Fetching code block with id ${id}`);
     const codeBlock = await Block.findOne({ blockId: id }).lean();
@@ -46,10 +62,22 @@ const handleGetCodeBlock = async (socket, id) => {
   }
 };
 
+/*
+    handleUpdateCode function description:
+    This function updates the code block with the specified id in the database and emits the updated code to the client.
+    It sends the updated code to the client when the client updates it.
+*/
+
 const handleUpdateCode = (io, socket, { id, newCode }) => {
   console.log(`Code updated for block ${id}: ${newCode}`);
   io.to(id).emit("codeUpdated", newCode);
 };
+
+/*
+    handleDisconnect function description:
+    This function removes the socket id from the code block connections when a user disconnects.
+    It removes the socket id from the code block connections when the user disconnects.
+*/
 
 const handleDisconnect = (socket) => {
   Object.keys(codeBlockConnections).forEach((id) => {

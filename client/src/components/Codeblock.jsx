@@ -5,6 +5,15 @@ import Code from "./Code";
 import Modal from "./Modal";
 import SolutionConfirm from "./SolutionConfirm";
 
+/*
+  CodeBlock component description:
+  This component is rendered when a user selects a code block from the lobby.
+  It displays the code block title, code editor, and a button to return to the lobby.
+  It also listens for changes to the code editor and emits the updated code to the server.
+  The CodeBlock component uses the useParams and useNavigate hooks from react-router-dom.
+  The useParams hook is used to access the id parameter from the URL.
+*/
+
 export default function CodeBlock() {
   const { id } = useParams();
   const navigate = useNavigate();
