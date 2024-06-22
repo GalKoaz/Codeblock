@@ -6,8 +6,10 @@ the mentor can read-only mode, the students can write and edit the code and all 
 
 The project uses the database Mongodb to share the questions, titles, and solutions
 
-- [Demo Clip](https://youtu.be/EICQQ9a0Y5E?si=XaIwgSDlgzqKSPkU)
+the project contains a library called SyntaxHighlighter to highlight the syntax. for more details [react-syntax-highlighter
+](https://www.npmjs.com/package/react-syntax-highlighter)
 
+- [Demo Clip](https://youtu.be/EICQQ9a0Y5E?si=XaIwgSDlgzqKSPkU)
 
 
 
