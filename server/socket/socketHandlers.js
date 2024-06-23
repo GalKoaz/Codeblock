@@ -6,7 +6,7 @@ const Block = require("../models/codeBlocksModel");
   It defines the logic to handle the different events that occur on the socket connection.
 */
 
-const codeBlockConnections = {};
+const Connections = {};
 
 /*
   handleGetTitles function description:
@@ -35,17 +35,17 @@ const handleGetTitles = async (socket) => {
 */
 const handleGetCodeBlock = async (socket, id) => {
   try {
-    const connections = codeBlockConnections[id] || [];
+    const connections = Connections[id] || [];
 
     if (connections.length === 0) {
-      codeBlockConnections[id] = [socket.id];
+      Connections[id] = [socket.id];
       socket.emit("role", "mentor");
     } else {
-      codeBlockConnections[id].push(socket.id);
+      Connections[id].push(socket.id);
       socket.emit("role", "student");
     }
 
-    console.log("User joined code block", id, codeBlockConnections[id]);
+    console.log("User joined code block", id, Connections[id]);
 
     console.log(`Fetching code block with id ${id}`);
     const codeBlock = await Block.findOne({ blockId: id }).lean();
@@ -80,12 +80,12 @@ const handleUpdateCode = (io, socket, { id, newCode }) => {
 */
 
 const handleDisconnect = (socket) => {
-  Object.keys(codeBlockConnections).forEach((id) => {
-    const index = codeBlockConnections[id].indexOf(socket.id);
+  Object.keys(Connections).forEach((id) => {
+    const index = Connections[id].indexOf(socket.id);
     if (index !== -1) {
-      codeBlockConnections[id].splice(index, 1);
-      if (codeBlockConnections[id].length === 0) {
-        delete codeBlockConnections[id];
+      Connections[id].splice(index, 1);
+      if (Connections[id].length === 0) {
+        delete Connections[id];
       }
     }
   });
