@@ -5,8 +5,18 @@ import Code from "./Code";
 import Modal from "./Modal";
 import SolutionConfirm from "./SolutionConfirm";
 
+/*
+  CodeBlock component description:
+  This component is rendered when a user selects a code block from the lobby.
+  It displays the code block title, code editor, and a button to return to the lobby.
+  It also listens for changes to the code editor and emits the updated code to the server.
+  The CodeBlock component uses the useParams and useNavigate hooks from react-router-dom.
+  The useParams hook is used to access the id parameter from the URL.
+*/
+
 const BASE_URL =
   process.env.NODE_ENV === "production" ? "/" : "http://localhost:4000";
+  
 
 export default function CodeBlock() {
   const { id } = useParams();
@@ -21,18 +31,19 @@ export default function CodeBlock() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const socketRef = useRef(null);
 
+
   useEffect(() => {
-    if (!id) return;
-
     const socket = io(BASE_URL);
-    socketRef.current = socket;
+    if(id) {
+      socketRef.current = socket;
 
-    socket.emit("getCodeBlock", id);
-    socket.on("codeBlock", handleCodeBlock);
-    socket.on("role", handleRole);
-    socket.on("codeUpdated", handleCodeUpdated);
-
-    return () => socket.disconnect();
+      socket.emit("getCodeBlock", id);
+      socket.on("codeBlock", handleCodeBlock);
+      socket.on("role", handleRole);
+      socket.on("codeUpdated", handleCodeUpdated);
+  
+      return () => socket.disconnect();
+    }
   }, [id]);
 
   const handleCodeBlock = ({ title, code, solution }) => {
